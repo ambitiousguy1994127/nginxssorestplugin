@@ -1,0 +1,27 @@
+ngx_module_type=HTTP
+ngx_module_name=ngx_ssorest_plugin_module
+ngx_module_incs=
+ngx_module_deps="													\
+				$ngx_addon_dir/src/ngx_ssorest_plugin_module.h  	\
+				$ngx_addon_dir/src/json_payload.h 					\
+				$ngx_addon_dir/src/request.h 						\
+				$ngx_addon_dir/src/crypto.h 						\
+				$ngx_addon_dir/src/logging.h 						\
+				$ngx_addon_dir/src/file.h 							\
+				"
+ngx_module_srcs="													\
+				$ngx_addon_dir/src/ngx_ssorest_plugin_module.c   	\
+				$ngx_addon_dir/src/json_payload.c 					\
+				$ngx_addon_dir/src/request.c 						\
+				$ngx_addon_dir/src/crypto.c 						\
+				$ngx_addon_dir/src/logging.c 						\
+				$ngx_addon_dir/src/file.c 							\
+				"
+ngx_module_libs="-lcurl -ljson-c -lcrypto"
+ngx_module_order=
+
+CFLAGS="$CFLAGS -D'MOD_VER=\"0.9.0\"' -D'SVN_REV="\"$(svn info $ngx_addon_dir | grep "Revision" | awk '{print $2}')"\"'"
+
+. auto/module
+
+have="NGX_HTTP_HEADERS" . auto/have
